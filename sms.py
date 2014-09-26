@@ -1,4 +1,8 @@
+# -*- coding=utf-8 -*-
+from __future__ import absolute_import, division, unicode_literals
+
 import dateutil.parser
+import logging
 from lxml import objectify
 import sys
 import time
@@ -9,7 +13,7 @@ from themylog.collector.timeline import Timeline
 from themylog.level import levels
 from themylog.record import Record
 
-setup_logging_handler("sms")
+setup_logging_handler("sms_daemon")
 
 client = Client()
 sms = set()
@@ -46,6 +50,6 @@ while True:
                               args={k.tag: unicode(k) for k in Message.iter()},
                               explanation=unicode(Message.Content)))
     except:
-        logging.exception()
+        logging.exception("An exception occured")
 
     time.sleep(1)
